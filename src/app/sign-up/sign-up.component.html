@@ -1,0 +1,22 @@
+<h1 class="text-center text-success">Welcome To Campus Recruitment System</h1>
+
+<div class="form-group main">
+    <form [formGroup] = "form" (ngSubmit) = "signup(form.value)">    
+        <h2 style="text-align: center;" class="text-primary">SignUp Form</h2>
+        <div class="row">
+            <div class="col-sm-4">
+                <input type="text" class="form-control input"  placeholder="First Name"  formControlName="fname" required>            
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control input"  placeholder="Last Name" formControlName="lname" required>            
+            </div>
+        </div>
+            <input type="text" class="form-control input"   placeholder="email@gmail.com" formControlName="email" required>            
+            <input type="password" class="form-control input"  placeholder="Password" formControlName="password" required>            
+            <input type="radio" class="" value="student" name="userType" formControlName="userType">Student
+            <input type="radio" class="" value="company" name="userType" formControlName="userType">Company
+            <button class="btn btn-success btn-block input" [disabled]="!form.valid" >SignUp</button>           
+            <p>already have an account <a href="#" routerLink="/logIn" class="text-info"> Login</a></p>
+    </form>  
+  </div>
+  

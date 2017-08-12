@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    margin: 0;
+    padding: 0;
+    background-color:#444444;
+
+}
+.input{
+    margin-bottom: 10px !important;
+    width:90% !important;
+}
+.main{
+            background-color: #FCFCFC;
+            width: 300px;
+            margin: 100px auto;
+            border-radius: 5px;
+            padding: 20px;
+            
+        }

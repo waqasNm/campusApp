@@ -1,0 +1,16 @@
+<h1 class="text-center text-success">Welcome To Campus Recruitment System</h1>
+<div class="form-group main">
+    <form [formGroup] = "form" (ngSubmit) = "login(form.value)">
+        <h2 style="text-align: center;" class="text-primary">LogIn Form</h2>
+            <input type="text" class="form-control input"  placeholder="email@gmail.com" formControlName="email" required>            
+            <input type="password" class="form-control input"  placeholder="Password" formControlName="password" required>            
+            <button class="btn btn-success btn-block input" [disabled]="!form.valid" >LogIn</button>           
+            <p>Don't have an account <a href="#" routerLink="/signUp" class="text-info"> SignUp</a></p>
+    </form>
+</div>
+  
+ <p *ngIf="isTrue then first; else second">Hello</p>
+  <ng-template #first>This is 1st
+      <button class="btn btn-danger btn-block"  (click) = "logout()" >Logout</button>                
+  </ng-template>
+  <ng-template #second>This is 2nd</ng-template>

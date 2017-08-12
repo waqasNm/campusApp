@@ -1,0 +1,47 @@
+<h1 class="text-center text-success">Welcome To Campus Recruitment System</h1>
+
+<a (click) = "isTrue = true" >Profile</a>
+<a (click) = "isTrue = false" >View Post</a>
+<!--<a (click) = "sp = true; pf = false; post = false">Students Profile</a>-->
+<!--<a (click) = "pf = false; sp = false; post = true ">View Jobs</a>-->
+<button class="btn btn-success" (click) = "jobs()">View Jobs</button>
+
+
+<ng-template #profile>
+    <div class="form-group main" >
+        <form [formGroup] = "form" (ngSubmit) = "save(form.value)">    
+            <h2 style="text-align: center;" class="text-primary">Profile</h2>
+                <input type="text" class="form-control input"   placeholder="Enter Name" formControlName="name" required>            
+                <!--<input type="password" class="form-control input"  placeholder="Password" formControlName="password" required>-->
+                <input type="text" class="form-control input" placeholder="Enter Qualification" formControlName="edu" required>                
+                <input type="text" class="form-control input" placeholder="CGPA" formControlName="grade" required>                
+                <input type="number" class="form-control input" placeholder="Phone No." formControlName="phone" required>                
+                <input type="radio" class="" value="male" name="gender" formControlName="gender" required>Male
+                <input type="radio" class="" value="female" name="gender" formControlName="gender" required>Female
+                <button class="btn btn-success btn-block input" [disabled]="!form.valid" >Save</button>           
+                <!--<p>already have an account <a href="#" routerLink="/logIn" class="text-info"> Login</a></p>-->
+        </form>  
+    </div>
+</ng-template>
+<ng-template #viewJobs>
+    <div class="container">
+        <h1>View Jobs</h1>
+      <table class="table table-striped table-hover" >
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <!--<th>Grade</th>-->
+        </tr>
+        <tr *ngFor="let job of viewJobs ">
+          <td>{{job.Name}}</td>
+          <!--<td>{{job.decription}}</td>-->
+          <!--<td>{{std.grade}}</td>-->
+        </tr>
+      </table>
+    </div>
+</ng-template>
+  
+    <!--<p *ngIf="post then postJob"></p>-->
+    <!--<p *ngIf="sp then stdProfile"></p>-->
+    <p *ngIf="isTrue then profile;else viewJobs"></p>
+    <!--<p *ngIf="isTrue then profile;else stdProfile"></p>-->
