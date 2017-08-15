@@ -11,22 +11,18 @@ import { DataService } from '../data.service';
 export class LogInComponent implements OnInit {
  form;
   constructor(private auth:AuthService, public data:DataService) { }
-  // email;
-  // password;
+  
   ngOnInit() {
     this.form = new FormGroup ({
       email: new FormControl(""),
-      // userType: new FormControl(""),
       password: new FormControl("")
     })
   }
   isTrue = false;
   login(user) {
     this.auth.login(user.email, user.password);
-    // this.data.showUser();
-    this.isTrue = true;
+    this.isTrue = false;
     this.form.reset();
-    // this.email = this.password = '';    
   }
 
 }

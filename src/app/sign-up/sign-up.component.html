@@ -13,8 +13,12 @@
         </div>
             <input type="text" class="form-control input"   placeholder="email@gmail.com" formControlName="email" required>            
             <input type="password" class="form-control input"  placeholder="Password" formControlName="password" required>            
-            <input type="radio" class="" value="student" name="userType" formControlName="userType">Student
-            <input type="radio" class="" value="company" name="userType" formControlName="userType">Company
+            <label for="">
+                <input type="radio" class="" value="student" name="userType" formControlName="userType" required>Student
+            </label>
+            <label for="">
+                <input type="radio" class="" value="company" name="userType" formControlName="userType" required>Company
+            </label>
             <button class="btn btn-success btn-block input" [disabled]="!form.valid" >SignUp</button>           
             <p>already have an account <a href="#" routerLink="/logIn" class="text-info"> Login</a></p>
     </form>  

@@ -32,7 +32,7 @@
       </form>    
     </div>    
     <div class="container">
-      <button class="btn btn-success" (click) = "viewPost(); tb=true; btn=false" *ngIf="btn">View Post</button>
+      <button class="btn btn-success" (click) = "tb=true; btn=false" *ngIf="btn">View Post</button>
       <table class="table table-striped table-hover" *ngIf="tb" >
         <tr>
           <th>#</th>
@@ -40,7 +40,7 @@
           <th>Description</th>
           <!--<th></th>-->
         </tr>
-        <tr *ngFor="let post of jobPost; let i = index  ">
+        <tr *ngFor="let post of arr; let i = index  ">
           <td>{{i+1}}</td>
           <td>{{post.jobName}}</td>
           <td>{{post.description}}</td>
@@ -63,11 +63,14 @@
           <th>Name</th>
           <th>Qualification</th>
           <th>Grade</th>
+          <th>University/Institue</th>
         </tr>
-        <tr *ngFor="let std of stds | async ">
+        <tr *ngFor="let std of allStdVal; let i = index ">
+          <td>{{i+1}}</td>
           <td>{{std.name}}</td>
           <td>{{std.edu}}</td>
           <td>{{std.grade}}</td>
+          <td>{{std.institue}}</td>
         </tr>
       </table>
     </div>

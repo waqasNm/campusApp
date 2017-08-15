@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl } from '@angular/forms';
-import { FirebaseListObservable } from 'angularfire2/database';
 import { DataService } from '../data.service';
 import { AppComponent } from '../app.component';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 
 
@@ -16,9 +17,10 @@ import { AppComponent } from '../app.component';
 export class CompanyComponent implements OnInit {
   form;
   job;
-  jobPost;
-  constructor(public data:DataService, public ap:AppComponent) { 
-    
+  jobPost:FirebaseListObservable<any>;
+  constructor(private db:AngularFireDatabase, private af:AngularFireAuth, public data:DataService, public ap:AppComponent) { 
+    this.showPost()  
+    this. getAllStdProfile()
   }
   
   isTrue = this.ap.isTrue;  
@@ -45,22 +47,59 @@ export class CompanyComponent implements OnInit {
     this.job.reset();    
   }
 
-  
+ /*Show Job Posts of a Company */
+ uid;
+ arr = [];
+ showPost(){
+    this.uid = this.af.auth.currentUser.uid; 
+    console.log(this.uid);
+    this.jobPost = this.db.list('/jobPosts/'+ this.uid, { preserveSnapshot: true });
+    this.jobPost
+      .subscribe(snapshots => {
 
-  viewPost(){
-    this.jobPost = this.data.demoFunc ;
-    // this.data.showPost()
-    // this.jobPost = this.data.data;
-    // console.log(this.jobPost.value);
-    // console.log(this.data.data);
-    // console.log(this.jobPost);
-  //  const a = this.data.func(this.data.showPost());
-  //  console.log(this.data.demoFunc);
-  //  this.data.eventCallback$.subscribe(data => {
-    // console.log(this.data.showPost());
-// });
- 
-// console.log(a);
- }
+        this.arr = [];
+        
+        snapshots.forEach(snapshot => {
+        console.log(snapshot.key)
+        console.log(snapshot.val())
+        // this.data =snapshot.val();
+        this.arr.push(snapshot.val());
+        console.log(this.arr);
+    });
+  })
+    // console.log(this.data);
+        console.log(this.arr);
+    
+  }
+ /**/
+   /*Get All Students Profile*/
+  getAllStudents:FirebaseObjectObservable<any>;
+    allStdKey = [];
+    allStdVal = [];
+    allSKey = [];
+     getAllStdProfile() {
 
+    this.getAllStudents = this.db.object('/studentProfile/', { preserveSnapshot: true });
+    this.getAllStudents.subscribe(snapshots => {
+
+      this.allStdKey = [];
+      this.allStdVal = [];
+      this.allSKey = [];
+      snapshots.forEach(snapshot => {
+        this.allSKey.push(snapshot.key);
+        this.allStdVal.push(snapshot.val());
+        console.log(this.allSKey);
+        console.log(this.allStdVal);
+      // snapshot.forEach(snapshot => {
+
+      //     this.allStdKey.push(snapshot.key);
+      //     this.allStdVal.push(snapshot.val());
+      //     console.log(this.allStdKey);
+      //     console.log(this.allStdVal);
+      //   })
+      });
+    })
+
+  }
+  /**/
 }

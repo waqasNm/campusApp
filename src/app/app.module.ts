@@ -44,6 +44,10 @@ export const config = {
     AngularFireDatabaseModule,
     RouterModule.forRoot([
       {
+        path:'',
+        component:LogInComponent
+      },
+      {
         path:'admin',
         component:AdminComponent
       },
