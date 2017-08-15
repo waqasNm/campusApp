@@ -1,30 +1,37 @@
-<a (click) = "isTrue = true">Students</a>
-<a (click) = "isTrue = false">Companies</a>
+<div class="container margin-top">
+  <button class="btn btn-outline-primary"><a (click) = "isTrue = true">Students</a></button>
+  <button class="btn btn-outline-primary"><a (click) = "isTrue = false">Companies</a></button>
+</div>
+
 <p *ngIf="isTrue then students; else companies"></p>
 <ng-template #students>
-  <h1>Students</h1>
   <div class="container">
+    <h1 class="text-center text-success">Students</h1>    
     <table class="table table-striped table-hover">
       <tr>
+        <th>#</th>
         <th>Name</th>
         <th>Qualification</th>
         <th>Grade</th>
+        <th>University/Iinstitue</th>
+        <th>Phone No.</th>
+        <th></th>        
       </tr>
       <tr *ngFor = "let std of allStdVal; let i = index">
         <td>{{i+1}}</td>
         <td>{{std.name}}</td>
         <td>{{std.edu}}</td>
         <td>{{std.grade}}</td>
-        <td>{{std.institue}}</td>
+        <td>{{std.institute}}</td>
         <td>{{std.phone}}</td>
-        <td><button class="btn btn-danger" (click) = "deleteUser(i,'student')">Delete</button></td>
+        <td><button class="btn btn-danger btn-outline-danger" (click) = "deleteUser(i,'student')">Delete</button></td>
       </tr>
     </table>
   </div>
 </ng-template>
 <ng-template #companies>
-  <h1>Companies</h1>
   <div class="container">
+    <h1 class="text-center text-success">Companies</h1>    
     <table class="table table-striped table-hover">
       <tr>
         <th>#</th>        
@@ -38,7 +45,7 @@
         <td>{{company.name}}</td>
         <td>{{company.address}}</td>
         <td>{{company.phone}}</td>
-        <td><button class="btn btn-danger" (click) = "deleteUser(i,'company')">Delete</button></td>
+        <td><button class="btn btn-danger btn-outline-danger" (click) = "deleteUser(i,'company')">Delete</button></td>
       </tr>
     </table>
   </div>

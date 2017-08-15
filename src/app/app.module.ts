@@ -2,11 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Routes,RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 /*Angularfire2*/
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+
 
 import { AppComponent } from './app.component';
 import { StudentsComponent } from './students/students.component';
@@ -42,9 +44,14 @@ export const config = {
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
+    NgbModule.forRoot(),
     RouterModule.forRoot([
       {
         path:'',
+        component:LogInComponent
+      },
+      {
+        path:'**',
         component:LogInComponent
       },
       {

@@ -3,14 +3,18 @@
 <a [routerLink]="['viewStd']">View Students</a>
 <a [routerLink]="['postJob']">Post Job</a>
 <router-outlet></router-outlet>-->
-<button class="btn btn-primary"><a (click) = "pf = true; sp = false; post = false" >Profile</a></button>
-<button class="btn btn-primary"><a (click) = "sp = true; pf = false; post = false">Students Profile</a></button>
-<button class="btn btn-primary"><a (click) = "pf = false; sp = false; post = true;btn=true;tb=false">Post Job</a></button>
+<div class="container">
+  <button class="btn btn-outline-primary"><a (click) = "vp=false;pf = true; sp = false; post = false" >Profile</a></button>
+  <button class="btn btn-outline-primary"><a (click) = "vp=false;sp = true; pf = false; post = false">Students Profile</a></button>
+  <button class="btn btn-outline-primary"><a (click) = "vp=false;pf = false; sp = false; post = true;btn=true;tb=false">Post Job</a></button>
+  <button class="btn btn-outline-primary" (click) = "vp=true; pf = false; sp = false; post = false" >View Post</button>
+</div>
+
 
 <!--Profile Template-->
 
 <ng-template #profile>
-  <div class="form-group main" #profile>
+  <div class="form-group main" #profile >
       <form [formGroup] = "form" (ngSubmit) = "save(form.value)">    
           <h2 style="text-align: center;" class="text-primary">Company Profile</h2>
               <input type="text" class="form-control input"   placeholder="Company Name" formControlName="name" required>            
@@ -25,15 +29,19 @@
   <ng-template #postJob>
   <div class="form-group main">
       <form [formGroup] = "job" (ngSubmit) = "createPost(job.value)">    
-          <h2 style="text-align: center;" class="text-primary">Post Job</h2>
+          <h2  class="text-center text-primary">Post Job</h2>
               <input type="text" class="form-control input"   placeholder="Job Name" formControlName="jobName" required>
-              <textarea name="" id="" cols="30" rows="10" placeholder="Description" formControlName="description" required></textarea>            
+              <textarea name="" id="" cols="35" rows="10" placeholder="Description" formControlName="description" required></textarea>            
               <button class="btn btn-success btn-block input" [disabled]="!job.valid" >Save</button>           
       </form>    
-    </div>    
+  </div>    
+  </ng-template>
+
+<!--View Posted Jobs-->
+  <ng-template #viewpost>
     <div class="container">
-      <button class="btn btn-success" (click) = "tb=true; btn=false" *ngIf="btn">View Post</button>
-      <table class="table table-striped table-hover" *ngIf="tb" >
+      <h2 class="text-center text-success">Posted Jobs</h2>
+      <table class="table table-striped table-hover" >
         <tr>
           <th>#</th>
           <th>Job Name</th>
@@ -44,7 +52,6 @@
           <td>{{i+1}}</td>
           <td>{{post.jobName}}</td>
           <td>{{post.description}}</td>
-          <!--<td>{{std.grade}}</td>-->
         </tr>
       </table>
     </div>
@@ -52,14 +59,16 @@
   <p *ngIf="post then postJob"></p>
   <p *ngIf="sp then stdProfile"></p>
   <p *ngIf="pf then profile"></p>
-  <!--<p *ngIf="vp then viewPost"></p>-->
+  <p *ngIf="vp then viewpost"></p>
   <!--<p *ngIf="isTrue then profile;else stdProfile"></p>-->
 
   <!--Student Profile Template-->
   <ng-template  #stdProfile>
     <div class="container">
+      <h2 class="text-center text-success">Students Profile</h2>
       <table class="table table-striped table-hover" >
         <tr>
+          <th>#</th>          
           <th>Name</th>
           <th>Qualification</th>
           <th>Grade</th>
@@ -70,7 +79,7 @@
           <td>{{std.name}}</td>
           <td>{{std.edu}}</td>
           <td>{{std.grade}}</td>
-          <td>{{std.institue}}</td>
+          <td>{{std.institute}}</td>
         </tr>
       </table>
     </div>

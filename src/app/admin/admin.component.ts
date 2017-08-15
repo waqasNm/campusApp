@@ -35,8 +35,8 @@ export class AdminComponent implements OnInit {
       snapshots.forEach(snapshot => {
         this.allSKey.push(snapshot.key);
         this.allStdVal.push(snapshot.val());
-        console.log(this.allSKey);
-        console.log(this.allStdVal);
+        // console.log(this.allSKey);
+        // console.log(this.allStdVal);
       // snapshot.forEach(snapshot => {
 
       //     this.allStdKey.push(snapshot.key);
@@ -50,13 +50,13 @@ export class AdminComponent implements OnInit {
   }
   /**/
   /*Get All Company Profile*/
-    getAllCompanies:FirebaseListObservable<any>;
+    getAllCompanies:FirebaseObjectObservable<any>;
     allCompanyKey = [];
     allCompanyVal = [];
     allKey = [];
      getAllCompProfile() {
 
-    this.getAllCompanies = this.db.list('/companyProfile/', { preserveSnapshot: true });
+    this.getAllCompanies = this.db.object('/companyProfile/', { preserveSnapshot: true });
     this.getAllCompanies.subscribe(snapshots => {
 
       this.allCompanyKey = [];
@@ -64,27 +64,28 @@ export class AdminComponent implements OnInit {
       this.allKey = [];
       snapshots.forEach(snapshot => {
         this.allKey.push(snapshot.key);
+        this.allCompanyVal.push(snapshot.val())
         console.log(this.allKey);
-      snapshot.forEach(snapshot => {
+      // snapshot.forEach(snapshot => {
 
-          this.allCompanyKey.push(snapshot.key);
-          this.allCompanyVal.push(snapshot.val());
-          console.log(this.allCompanyKey);
-          console.log(this.allCompanyVal);
-        })
+      //     this.allCompanyKey.push(snapshot.key);
+      //     this.allCompanyVal.push(snapshot.val());
+      //     console.log(this.allCompanyKey);
+      //     console.log(this.allCompanyVal);
+      //   })
       });
     })
 
   }
   /**/
   /*Get all Users*/
-  companyRegistration: FirebaseListObservable<any>;
+  userRegistration: FirebaseListObservable<any>;
   allUsersKey = [];
   allUsersVal = [];
   usersKey = [];
   getAllComp(){
-    this.companyRegistration = this.db.list('/users/',{ preserveSnapshot:true})
-    this.companyRegistration.subscribe(snapshots => {
+    this.userRegistration = this.db.list('/users/',{ preserveSnapshot:true})
+    this.userRegistration.subscribe(snapshots => {
 
       this.allUsersKey = [];
       this.allUsersVal = [];
@@ -107,28 +108,29 @@ export class AdminComponent implements OnInit {
   /*Delet Account and Profile*/
 companyProfile:FirebaseListObservable<any>;
 stdProfile:FirebaseListObservable<any>;
+allJobPosts:FirebaseListObservable<any>;
 userid;
   deleteUser(key,name){
     if(name === 'student'){
       console.log("student");
       console.log(key)
       console.log(this.allSKey[key]);
-    //   for(var i = 0; i < this.usersKey.length;i++){
-    //     if(this.usersKey[i] === this.allSKey[key])
-    //     this.userid = this.usersKey[i];
-    //     // console.log(this.usersKey[i]);
-    // }
+      for(var i = 0; i < this.usersKey.length;i++){
+        if(this.usersKey[i] === this.allSKey[key])
+        this.userid = this.usersKey[i];
+        // console.log(this.usersKey[i]);
+    }
     this.stdProfile = this.db.list('/studentProfile/', { preserveSnapshot: true });  
     this.stdProfile.remove(this.allSKey[key]);
 
-    this.companyRegistration = this.db.list('/users/', { preserveSnapshot: true });
-    this.companyRegistration.remove(this.allSKey[key]);
+    this.userRegistration = this.db.list('/users/', { preserveSnapshot: true });
+    this.userRegistration.remove(this.userid);
 
     }else if(name === 'company'){
       console.log("company");
-      // console.log(key);
-      // console.log(this.allKey[key]);
-      // console.log(this.usersKey[key]);
+      console.log(key);
+      console.log(this.allKey[key]);
+      console.log(this.usersKey[key]);
     
     for(var i = 0; i < this.usersKey.length;i++){
       if(this.usersKey[i] === this.allKey[key])
@@ -136,10 +138,13 @@ userid;
       // console.log(this.usersKey[i]);
       
     }
+    console.log(this.userid)
     this.companyProfile = this.db.list('/companyProfile/', { preserveSnapshot: true });
     this.companyProfile.remove(this.allKey[key]);
-    this.companyRegistration = this.db.list('/users/', { preserveSnapshot: true });
-    this.companyRegistration.remove(this.userid);
+    this.userRegistration = this.db.list('/users/', { preserveSnapshot: true });
+    this.userRegistration.remove(this.userid);
+    this.allJobPosts = this.db.list('/jobPosts/', { preserveSnapshot: true });
+    this.allJobPosts.remove(this.userid);
     }else{
       console.log("no name");      
     }

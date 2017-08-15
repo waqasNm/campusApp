@@ -3,14 +3,16 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Router } from '@angular/router';
+// import { Observable } from 'rxjs/Rx';
 
 
  @Injectable()
 export class DataService {
 
+
   users: FirebaseListObservable<any[]>;
   studentProfile:FirebaseObjectObservable<any[]>;
-  companyProfile:FirebaseListObservable<any[]>;
+  companyProfile:FirebaseObjectObservable<any[]>;
   jobPost:FirebaseListObservable<any[]>;
   allPosts:FirebaseListObservable<any[]>;
   userProfile: FirebaseObjectObservable<any>;
@@ -40,27 +42,33 @@ export class DataService {
       snapshot.forEach(snapshotee => {
         console.log(snapshotee.val())
         console.log(snapshotee.val().userType)
-        if(snapshotee.val().userType === 'student'){
-          console.log('Student Login');
-          // this.stateCompany = false;
-          this.state = 'student';          
-           this.router.navigate(['/student']);
+        if(snapshotee.val() === null){
+          console.log('Your Account is Blocked by Admin!')
+          this.router.navigate(['/logIn']);
         }else {
-          if(snapshotee.val().userType === 'company'){
-          console.log('Company login');
-          this.state = 'company';
-           this.router.navigate(['/company']);
-        }else{
-          console.log('Àdmin login');
-           this.router.navigate(['/admin']);
+          if(snapshotee.val().userType === 'student'){
+            console.log('Student Login');
+            // this.stateCompany = false;
+            this.state = 'student';          
+            this.router.navigate(['/student']);
+          }else {
+            if(snapshotee.val().userType === 'company'){
+            console.log('Company login');
+            this.state = 'company';
+            this.router.navigate(['/company']);
+          }else{
+            console.log('Àdmin login');
+            this.router.navigate(['/admin']);
+          }
+          } 
         }
-        } 
+
         
       })
       
     })
-    
-    console.log(this.userProfile);
+  console.log('Your Account is Blocked by Admin!')  
+
   }
 
 
@@ -72,8 +80,8 @@ export class DataService {
   }
 
   addCompanyProfile(profile){
-    this.companyProfile = this.db.list('/companyProfile/'+ this.uid);    
-    this.companyProfile.push(profile);
+    this.companyProfile = this.db.object('/companyProfile/'+ this.uid);    
+    this.companyProfile.update(profile);
     console.log(profile);
 
   }
@@ -82,5 +90,5 @@ export class DataService {
     this.jobPost = this.db.list('/jobPosts/'+ this.uid);    
     this.jobPost.push(job);
   }
-  
+
 }
