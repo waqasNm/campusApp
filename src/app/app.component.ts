@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { AuthService } from './auth.service';
 import { DataService } from './data.service';
 import { Router } from '@angular/router';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -17,8 +16,7 @@ export class AppComponent {
   stateStd = false;
   stateCompany = false;
   state;
- closeResult: string;
- constructor (public auth:AuthService, public data:DataService, public router: Router,private modalService: NgbModal){
+ constructor (public auth:AuthService, public data:DataService, public router: Router){
   //  this.status();
   auth.getLoggedInName.subscribe(name => this.changeName(name));
    
@@ -64,22 +62,4 @@ export class AppComponent {
    
  } 
 
- /*bootstrap modal*/
-   open(content) {
-    this.modalService.open(content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
-  }
 }
