@@ -16,3 +16,9 @@ body{
     border-radius: 5px;
     padding: 20px;
 }
+.modal-dialog-company {
+    width: 600px !important;
+}
+.modal-dialog {
+    width: 600px !important;
+}

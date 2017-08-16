@@ -55,25 +55,25 @@ export class StudentsComponent implements OnInit {
       console.log(snapshots.key);
       console.log(snapshots.val().name);
       console.log(this.currentUser);
-      // setTimeout(() => {
-      //   this.form.setValue({
-      //     name: snapshots.val().name,
-      //     edu: snapshots.val().edu,
-      //     grade: snapshots.val().grade,
-      //     institute: snapshots.val().institute,
-      //     phone: snapshots.val().phone,
-      //     gender: snapshots.val().gender
+      setTimeout(() => {
+        this.form.setValue({
+          name: snapshots.val().name,
+          edu: snapshots.val().edu,
+          grade: snapshots.val().grade,
+          institute: snapshots.val().institute,
+          phone: snapshots.val().phone,
+          gender: snapshots.val().gender
           
 
-      //   });
-      // }, 3000)
+        });
+      }, 3000)
     })
   }
 
     demoGetPost:FirebaseListObservable<any>;
     allJobPostKey = [];
     allJobPostVal = [];
-     getJobPosts() {
+  getJobPosts() {
 
     this.demoGetPost = this.db.list('/jobPosts/', { preserveSnapshot: true });
     this.demoGetPost.subscribe(snapshots => {
@@ -83,7 +83,7 @@ export class StudentsComponent implements OnInit {
 
       snapshots.forEach(snapshot => {
       snapshot.forEach(snapshot => {
-
+          console.log(snapshot.hasChildren());
           this.allJobPostKey.push(snapshot.key);
           this.allJobPostVal.push(snapshot.val());
           console.log(this.allJobPostKey);
@@ -92,6 +92,11 @@ export class StudentsComponent implements OnInit {
       });
     })
 
+  }
+  applyForJob : FirebaseObjectObservable<any>;
+  apply(i){
+    this.applyForJob = this.db.object('jobPosts/'+this.allJobPostVal[i].companyId + '/' + this.allJobPostKey[i]  + '/appliedStudent/' + this.uid);
+    this.applyForJob.set(this.form.value);
   }
 
 }

@@ -25,12 +25,16 @@
         <h1 class="text-center text-success">View Jobs</h1>
       <table class="table table-striped table-hover" >
         <tr>
+          <th>#</th>
           <th>Name</th>
           <th>Description</th>
+          <th></th>
         </tr>
-        <tr *ngFor="let job of allJobPostVal">
+        <tr *ngFor="let job of allJobPostVal; let i = index">
+          <td>{{i+1}}</td>
           <td>{{job.jobName}}</td>
           <td>{{job.description}}</td>
+          <td><button class="btn btn-outline-success" (click) = "apply(i)">Apply</button></td>
         </tr>
       </table>
     </div>
