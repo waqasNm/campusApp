@@ -1,6 +1,6 @@
 <div class="container margin-top">
-  <button class="btn btn-outline-primary"><a (click) = "isTrue = true">Students</a></button>
-  <button class="btn btn-outline-primary"><a (click) = "isTrue = false">Companies</a></button>
+  <button class="btn btn-outline-primary"><a (click) = "std()">Students</a></button>
+  <button class="btn btn-outline-primary"><a (click) = "comp()">Companies</a></button>
 </div>
 
 <p *ngIf="isTrue then students; else companies"></p>

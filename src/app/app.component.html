@@ -45,11 +45,11 @@
       </div>
       <div *ngIf="!isTrue">      
         <li class="nav-item dropdown ">
-          <a class="nav-link dropdown-toggle text-white" href="#" routerLink="/logIn" (click) ="logOut()" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            LogOut
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{userName}}</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button class="dropdown-item" routerLink = "/logIn" (click) = "logOut()">LogOut</button>
+            </div>
           </div>
         </li>
       </div>      
@@ -58,27 +58,8 @@
 </nav>
 
     <!--End-->
+    
 
-    <ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">Modal title</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <p>One fine body&hellip;</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
-  </div>
-</ng-template>
-
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
-
-<hr>
-
-<pre>{{closeResult}}</pre>
 <!--<button (click) = 'status()'>satuts</button>-->
 <router-outlet></router-outlet>
 <!--<app-admin></app-admin>

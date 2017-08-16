@@ -4,10 +4,10 @@
 <a [routerLink]="['postJob']">Post Job</a>
 <router-outlet></router-outlet>-->
 <div class="container">
-  <button class="btn btn-outline-primary"><a (click) = "vp=false;pf = true; sp = false; post = false" >Profile</a></button>
-  <button class="btn btn-outline-primary"><a (click) = "vp=false;sp = true; pf = false; post = false">Students Profile</a></button>
-  <button class="btn btn-outline-primary"><a (click) = "vp=false;pf = false; sp = false; post = true;btn=true;tb=false">Post Job</a></button>
-  <button class="btn btn-outline-primary" (click) = "vp=true; pf = false; sp = false; post = false" >View Post</button>
+  <button class="btn btn-outline-primary"><a (click) = "cProfile()" >Profile</a></button>
+  <button class="btn btn-outline-primary"><a (click) = "sProfile()">Students Profile</a></button>
+  <button class="btn btn-outline-primary"><a (click) = "createpostJob()">Post Job</a></button>
+  <button class="btn btn-outline-primary" (click) = "postView()" >View Post</button>
 </div>
 
 

@@ -16,6 +16,13 @@ export class AdminComponent implements OnInit {
     this.getAllComp();
    }
   // stdData = this.data.studentProfile;
+  isTrue;
+  std(){
+    this.isTrue = true
+  }
+  comp(){
+    this.isTrue = false
+  }
 
   ngOnInit() {
   }

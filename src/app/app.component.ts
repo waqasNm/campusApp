@@ -16,14 +16,21 @@ export class AppComponent {
   stateStd = false;
   stateCompany = false;
   state;
+  userName;
  constructor (public auth:AuthService, public data:DataService, public router: Router){
   //  this.status();
   auth.getLoggedInName.subscribe(name => this.changeName(name));
+  data.getLoggedInUserName.subscribe(name => this.loggedName(name));
    
  }
    private changeName(bool: boolean): void {
         this.isTrue = bool;
     }
+    
+    private loggedName(name: string): void {
+        this.userName = name;
+    }
+
 //  stateCompany = this.data.stateCompany;
   // stateCompany = this.data.stateCompany;
   ngOnInit(){

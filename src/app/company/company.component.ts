@@ -21,10 +21,44 @@ export class CompanyComponent implements OnInit {
   constructor(private db:AngularFireDatabase, private af:AngularFireAuth, public data:DataService, public ap:AppComponent) { 
     this.showPost()  
     this. getAllStdProfile()
-  }
-  
+  } 
   isTrue = this.ap.isTrue;  
   stds = this.data.studentProfile;
+  
+      vp;
+    pf;
+    sp;
+    post;
+    btn;
+    tb;
+    cProfile(){
+      this.vp=false;
+      this.pf = true;
+      this.sp = false; 
+      this.post = false
+    }
+    sProfile(){
+      this.vp=false;
+      this.sp = true; 
+      this.pf = false; 
+      this.post = false
+    }
+    createpostJob(){
+      this.vp=false;
+      this.pf = false; 
+      this.sp = false; 
+      this.post = true;
+      this.btn=true;
+      this.tb=false
+
+    }
+    postView(){
+      this.vp=true; 
+      this.pf = false; 
+      this.sp = false; 
+      this.post = false
+    }
+  
   ngOnInit() {
     this.form = new FormGroup ({
       name: new FormControl(""),

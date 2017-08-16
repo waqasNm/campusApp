@@ -16,8 +16,15 @@ export class StudentsComponent implements OnInit {
     this.getJobPosts()
     this.getUserProfile()
    }
-  viewJobs;
-  allposts = this.data.jobPost; 
+  // viewJobs;
+  // allposts = this.data.jobPost;
+  isTrue; 
+  stdProfile(){
+    this.isTrue = true
+  }
+  seeJobs(){
+    this.isTrue = false
+  }
   
   ngOnInit() {
     this.form = new FormGroup ({

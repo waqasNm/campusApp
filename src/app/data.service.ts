@@ -1,13 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable,EventEmitter,Output } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Router } from '@angular/router';
-// import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
+
 
 
  @Injectable()
 export class DataService {
+  
+  @Output() getLoggedInUserName: EventEmitter<any> = new EventEmitter();
 
 
   users: FirebaseListObservable<any[]>;
@@ -33,15 +36,21 @@ export class DataService {
     this.users = this.db.list('/users/'+ this.uid);    
     this.users.push(user);
   }
-
-  showUser = function () {
+  userName;
+  showUser = function ():Observable<any>{
     this.uid = this.af.auth.currentUser.uid; 
     console.log(this.uid);
     this.userProfile = this.db.object('/users/' + this.uid, { preserveSnapshot: true });
     this.userProfile.subscribe(snapshot => {
+      this.userName = [];
       snapshot.forEach(snapshotee => {
         console.log(snapshotee.val())
         console.log(snapshotee.val().userType)
+        console.log(snapshotee.val().fname);
+        this.userName = snapshotee.val().fname;
+        console.log(this.userName);
+        this.getLoggedInUserName.emit(this.userName);
+         
         if(snapshotee.val() === null){
           console.log('Your Account is Blocked by Admin!')
           this.router.navigate(['/logIn']);
@@ -63,14 +72,18 @@ export class DataService {
           } 
         }
 
-        
       })
       
     })
-  console.log('Your Account is Blocked by Admin!')  
-
+    // console.log(this.userName);
+    return this.userName;
   }
-
+  // func():Observable<any>{
+  //   console.log(this.userName);
+  //   this.getLoggedInUserName.emit(this.userName);
+    
+  //   return this.userName;
+  // }
 
   addStudentProfile(profile){
     // this.uid = this.af.auth.currentUser.uid;
